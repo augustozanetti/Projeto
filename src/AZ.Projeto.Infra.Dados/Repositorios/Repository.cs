@@ -4,12 +4,13 @@ using AZ.Projeto.Infra.Dados.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AZ.Projeto.Infra.Dados.Repositorios
 {
-    public abstract class Repository<TEntity> : IRepositorio<TEntity> where TEntity : Entity
+    public abstract class Repository<TEntity> : IRepositorio<TEntity> where TEntity : Entity, new()
     {
         protected ProjetoContext Db;
         protected DbSet<TEntity> DbSet;
@@ -20,47 +21,57 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
             DbSet = Db.Set<TEntity>();
         }
 
-        public TEntity Adicionar(TEntity obj)
+        public virtual TEntity Adicionar(TEntity obj)
         {
             var objReturn = DbSet.Add(obj);
-            Db.SaveChanges();
+            SaveChanges();
 
             return objReturn;
         }
 
-        public TEntity Atualizar(TEntity obj)
+        public virtual TEntity Atualizar(TEntity obj)
         {
-            throw new NotImplementedException();
+            var entry = Db.Entry(obj);
+            DbSet.Attach(obj);
+            entry.State = EntityState.Modified;
+            SaveChanges();
+
+            return obj;
         }
 
         public IEnumerable<TEntity> Buscar(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return DbSet.Where(predicate);
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Db.Dispose();
         }
 
-        public TEntity ObterPorId(Guid id)
+        public virtual TEntity ObterPorId(Guid id)
         {
             return DbSet.Find(id);
         }
 
-        public async Task ObterTodos(int t, int s)
+        public virtual IEnumerable<TEntity> ObterTodos()
         {
-            var ret = await DbSet.ToListAsync();
+            //paginacao Skip/Take(pula e pega)
+            return DbSet.ToList();
         }
 
-        public void Remover(Guid id)
+        public virtual void Remover(Guid id)
         {
-            throw new NotImplementedException();
+            //Evita realizar a busca no banco para deletar o objeto
+            var obj = new TEntity { Id = id };
+            DbSet.Remove(obj);
+            SaveChanges();
+            //DbSet.Remove(DbSet.Find(id));
         }
 
-        public int SaveChanges()
+        public virtual int SaveChanges()
         {
-            throw new NotImplementedException();
+            return Db.SaveChanges();
         }
     }
 }

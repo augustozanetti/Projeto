@@ -14,7 +14,7 @@ namespace AZ.Projeto.Dominio.Interfaces.Repositorio
 
         TEntity ObterPorId(Guid id);
 
-        Task ObterTodos();
+        IEnumerable<TEntity> ObterTodos();
 
         TEntity Atualizar(TEntity obj);
 
