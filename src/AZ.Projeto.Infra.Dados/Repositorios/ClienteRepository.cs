@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AZ.Projeto.Infra.Dados.Repositorios
 {
-    class ClienteRepository : Repository<Cliente>, IClienteRepositorio
+    public class ClienteRepository : Repository<Cliente>, IClienteRepositorio
     {
         public Cliente ObterPorCpf(string cpf)
         {
@@ -23,8 +23,8 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
 
         public IEnumerable<Cliente> ObterAtivos()
         {
-            var sql = @"SELECT * FROM Clientes c" +
-                       "WHERE c.Excuido = 0 AND c.Ativo = 1";
+            var sql = @"SELECT * FROM Clientes c " +
+                       "WHERE c.Excluido = 0 AND c.Ativo = 1";
 
             return Db.Database.Connection.Query<Cliente>(sql);
         }
@@ -32,7 +32,7 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
         public override IEnumerable<Cliente> ObterTodos()
         {
             var sql = @"SELECT * FROM Clientes c" +
-                       "WHERE c.Excuido = 0";
+                       "WHERE c.Excluido = 0";
 
             return Db.Database.Connection.Query<Cliente>(sql);
         }
