@@ -39,17 +39,14 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
 
         public override Cliente ObterPorId(Guid id)
         {
-            var sql = @"SELECT * FROM Clientes c" +
+            var sql = @"SELECT * FROM Clientes a " +
                        "LEFT JOIN Enderecos e "+
-                       "ON c.Id = e.ClienteId" +
-                       "WHERE c.Id == @uid";//Parametros anonimos
+                       "ON a.Id = e.ClienteId " +
+                       "WHERE a.Id = @uid";
+                                               //Parametros anonimos
                                                //Seleciona cliente, endereco e retorna cliente
-            return Db.Database.Connection.Query<Cliente, Endereco,Cliente>(sql, 
-                (c,e) =>
-                {
-                    c.Enderecos.Add(e);
-                    return c;
-                }, new { uid = id}).FirstOrDefault();
+            return Db.Database.Connection.Query<Cliente, Endereco, Cliente>(sql, 
+                (c, e) => { c.Enderecos.Add(e); return c; }, new { uid = id}).FirstOrDefault();
         }
         
         public override void Remover(Guid id)

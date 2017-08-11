@@ -10,9 +10,12 @@ using AZ.Projeto.Aplicacao.ViewModels;
 using AZ.Projeto.Site.Models;
 using AZ.Projeto.Aplicacao.Interfaces;
 using AZ.Projeto.Aplicacao.Servicos;
+using AZ.Projeto.Infra.CrossCutting.MvcFilters;
 
 namespace AZ.Projeto.Site.Controllers
 {
+    [Authorize]
+    [RoutePrefix("gestao/crm")]
     public class ClientesController : Controller
     {
         private readonly IClienteAppService _clienteAppService;
@@ -22,11 +25,15 @@ namespace AZ.Projeto.Site.Controllers
             _clienteAppService = new ClienteAppService();
         }
 
+        [Route("listar-clientes")]
+        [ClaimsAuthorize("Cliente", "LT")]
         public ActionResult Index()
         {
             return View(_clienteAppService.ObterAtivos());
         }
-        
+
+        [Route("{id:guid}/detalhe-cliente")]
+        [ClaimsAuthorize("Cliente", "VI")]
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -43,11 +50,15 @@ namespace AZ.Projeto.Site.Controllers
             return View(clienteViewModel);
         }
 
+        [Route("novo-cliente")]
+        [ClaimsAuthorize("Cliente", "IN")]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Route("novo-cliente")]
+        [ClaimsAuthorize("Cliente", "IN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ClienteEnderecoViewModel clienteEnderecoViewModel)
@@ -61,6 +72,8 @@ namespace AZ.Projeto.Site.Controllers
             return View(clienteEnderecoViewModel);
         }
 
+        [Route("{id:guid}/editar-cliente")]
+        [ClaimsAuthorize("Cliente", "ED")]
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -76,6 +89,8 @@ namespace AZ.Projeto.Site.Controllers
             return View(clienteViewModel);
         }
 
+        [Route("{id:guid}/editar-cliente")]
+        [ClaimsAuthorize("Cliente", "ED")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ClienteViewModel clienteViewModel)
@@ -88,6 +103,8 @@ namespace AZ.Projeto.Site.Controllers
             return View(clienteViewModel);
         }
 
+        [Route("{id:guid}/excluir-cliente")]
+        [ClaimsAuthorize("Cliente", "EX")]
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -102,6 +119,8 @@ namespace AZ.Projeto.Site.Controllers
             return View(clienteViewModel);
         }
 
+        [Route("{id:guid}/excluir-cliente")]
+        [ClaimsAuthorize("Cliente", "EX")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)

@@ -197,11 +197,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PermissionHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -275,6 +277,8 @@
     <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
     <Content Include="Views\Clientes\endereco.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Shared\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -290,6 +294,10 @@
     <ProjectReference Include="..\AZ.Projeto.Aplicacao\AZ.Projeto.Aplicacao.csproj">
       <Project>{42995aaa-2ff8-4515-b944-6f0facdddb34}</Project>
       <Name>AZ.Projeto.Aplicacao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AZ.Projeto.Infra.CrossCutting.MvcFilters\AZ.Projeto.Infra.CrossCutting.MvcFilters.csproj">
+      <Project>{2465B081-ED11-4173-8617-151684AE527B}</Project>
+      <Name>AZ.Projeto.Infra.CrossCutting.MvcFilters</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

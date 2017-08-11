@@ -35,7 +35,6 @@ namespace AZ.Projeto.Aplicacao.ViewModels
         public string CPF { get; set; }
 
         [Display(Name = "Data de Nascimento")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "0:yyyy-MM-dd")]
         [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime DataNascimento { get; set; }
 
