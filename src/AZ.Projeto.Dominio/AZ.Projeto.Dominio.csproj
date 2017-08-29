@@ -30,15 +30,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DomainValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DomainValidation.1.0.0\lib\net451\DomainValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Especificacoes\Clientes\ClienteDeveSerMaiorDeIdadeEspecificacao.cs" />
+    <Compile Include="Especificacoes\Clientes\ClienteDeveTerCpfValidoEspecificacao.cs" />
+    <Compile Include="Especificacoes\Clientes\ClienteDeveTerEmailValidoEspecificacao.cs" />
     <Compile Include="Interfaces\Repositorio\IClienteRepositorio.cs" />
     <Compile Include="Interfaces\Repositorio\IRepositorio.cs" />
+    <Compile Include="Interfaces\Servico\IClienteServico.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Endereco.cs" />
     <Compile Include="Model\Entity.cs" />
+    <Compile Include="ObjetosValor\CPF.cs" />
+    <Compile Include="ObjetosValor\Email.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicos\ClienteServico.cs" />
+    <Compile Include="Validacoes\Clientes\ClienteEstaConsistenteValidation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

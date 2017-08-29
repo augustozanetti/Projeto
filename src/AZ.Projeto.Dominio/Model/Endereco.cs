@@ -33,5 +33,10 @@ namespace AZ.Projeto.Dominio.Model
         //Propriedade de navegação
         //Virtual por causa do lazyLoading
         public virtual Cliente Cliente { get; set; }
+
+        public override bool EhValido()
+        {
+            return true;
+        }
     }
 }

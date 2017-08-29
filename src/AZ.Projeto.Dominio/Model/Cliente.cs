@@ -1,8 +1,6 @@
-﻿using System;
+﻿using AZ.Projeto.Dominio.Validacoes.Clientes;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AZ.Projeto.Dominio.Model
 {
@@ -29,7 +27,13 @@ namespace AZ.Projeto.Dominio.Model
 
         public bool Excluido { get; set; }
 
-        //Virtual por causa do lazyLoadignhotm
+        //Virtual por causa do lazyLoading
         public virtual ICollection<Endereco> Enderecos { get; set; }
+
+        public override bool EhValido()
+        {
+            ValidationResult = new ClienteEstaConsistenteValidation().Validate(this);
+            return ValidationResult.IsValid;
+        }
     }
 }

@@ -9,16 +9,22 @@ using AZ.Projeto.Dominio.Interfaces.Repositorio;
 using AZ.Projeto.Infra.Dados.Repositorios;
 using AutoMapper;
 using AZ.Projeto.Dominio.Model;
+using AZ.Projeto.Dominio.Interfaces.Servico;
+using AZ.Projeto.Infra.Dados.Interfaces;
 
 namespace AZ.Projeto.Aplicacao.Servicos
 {
-    public class ClienteAppService : IClienteAppService
+    public class ClienteAppService : AppService, IClienteAppService
     {
         private readonly IClienteRepositorio _clienteRepository;
+        private readonly IClienteServico _clienteService;
 
-        public ClienteAppService()
+        public ClienteAppService(IClienteRepositorio clienteRepository, 
+                                 IClienteServico clienteService,
+                                 IUnitOfWork uow) : base (uow)                        
         {
-            _clienteRepository = new ClienteRepository();
+            _clienteRepository = clienteRepository;
+            _clienteService = clienteService;
         }
 
         public ClienteEnderecoViewModel Adicionar(ClienteEnderecoViewModel clienteEnderecoViewModel)
@@ -27,7 +33,14 @@ namespace AZ.Projeto.Aplicacao.Servicos
             var endereco = Mapper.Map<Endereco>(clienteEnderecoViewModel.Endereco);
 
             cliente.Enderecos.Add(endereco);
-            var clienteReturn = _clienteRepository.Adicionar(cliente);
+            //Add Pedido
+            var clienteReturn = _clienteService.Adicionar(cliente);
+            // Add ordem pagto
+            // Add Log transação - Integração cartão
+
+
+            //Validar se dominio não reclamou de nada.
+            Commit();
 
             clienteEnderecoViewModel.Cliente = Mapper.Map<ClienteViewModel>(clienteReturn);
 
@@ -37,7 +50,7 @@ namespace AZ.Projeto.Aplicacao.Servicos
         public ClienteViewModel Atualizar(ClienteViewModel clienteViewModel)
         {
             var cliente = Mapper.Map<Cliente>(clienteViewModel);
-            var clienteReturn = _clienteRepository.Atualizar(cliente);
+            var clienteReturn = _clienteService.Atualizar(cliente);
 
             return Mapper.Map<ClienteViewModel>(clienteReturn);
         }
@@ -74,7 +87,7 @@ namespace AZ.Projeto.Aplicacao.Servicos
 
         public void Remover(Guid id)
         {
-            _clienteRepository.Remover(id);
+            _clienteService.Remover(id);
         }
     }
 }

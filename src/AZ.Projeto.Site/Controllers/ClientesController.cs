@@ -20,9 +20,9 @@ namespace AZ.Projeto.Site.Controllers
     {
         private readonly IClienteAppService _clienteAppService;
 
-        public ClientesController()
+        public ClientesController(IClienteAppService clienteAppService)
         {
-            _clienteAppService = new ClienteAppService();
+            _clienteAppService = clienteAppService;
         }
 
         [Route("listar-clientes")]
