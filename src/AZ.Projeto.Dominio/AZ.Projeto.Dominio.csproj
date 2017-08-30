@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Especificacoes\Clientes\ClienteDeveSerMaiorDeIdadeEspecificacao.cs" />
+    <Compile Include="Especificacoes\Clientes\ClienteDeveSerUnicoEspecificacao.cs" />
     <Compile Include="Especificacoes\Clientes\ClienteDeveTerCpfValidoEspecificacao.cs" />
     <Compile Include="Especificacoes\Clientes\ClienteDeveTerEmailValidoEspecificacao.cs" />
     <Compile Include="Interfaces\Repositorio\IClienteRepositorio.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="ObjetosValor\Email.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicos\ClienteServico.cs" />
+    <Compile Include="Validacoes\Clientes\ClienteAptoParaCadastroValidacao.cs" />
     <Compile Include="Validacoes\Clientes\ClienteEstaConsistenteValidation.cs" />
   </ItemGroup>
   <ItemGroup>

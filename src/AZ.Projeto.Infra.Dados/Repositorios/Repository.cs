@@ -15,17 +15,16 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
         protected ProjetoContext Db;
         protected DbSet<TEntity> DbSet;
 
-        protected Repository()
+        protected Repository(ProjetoContext context)
         {
-            Db = new ProjetoContext();
+            Db = context;
             DbSet = Db.Set<TEntity>();
         }
 
         public virtual TEntity Adicionar(TEntity obj)
         {
             var objReturn = DbSet.Add(obj);
-            SaveChanges();
-
+            
             return objReturn;
         }
 
@@ -34,8 +33,7 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
             var entry = Db.Entry(obj);
             DbSet.Attach(obj);
             entry.State = EntityState.Modified;
-            SaveChanges();
-
+            
             return obj;
         }
 
@@ -65,7 +63,7 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
             //Evita realizar a busca no banco para deletar o objeto
             var obj = new TEntity { Id = id };
             DbSet.Remove(obj);
-            SaveChanges();
+            //SaveChanges();
             //DbSet.Remove(DbSet.Find(id));
         }
 

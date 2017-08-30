@@ -45,6 +45,9 @@ namespace AZ.Projeto.Aplicacao.ViewModels
         public bool Ativo { get; set; }
 
         [ScaffoldColumn(false)]
+        public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
+
+        [ScaffoldColumn(false)]
         public bool Excluido { get; set; }
 
         public ICollection<EnderecoViewModel> Enderecos { get; set; }

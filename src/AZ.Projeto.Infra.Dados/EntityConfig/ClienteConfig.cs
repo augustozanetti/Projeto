@@ -36,6 +36,8 @@ namespace AZ.Projeto.Infra.Dados.EntityConfig
             Property(c => c.Excluido)
                 .IsRequired();
 
+            Ignore(c => c.ValidationResult);
+
             ToTable("Clientes");
 
             //ToTable("Clientes", "Sistema"); Schema

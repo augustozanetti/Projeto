@@ -40,7 +40,10 @@ namespace AZ.Projeto.Aplicacao.Servicos
 
 
             //Validar se dominio não reclamou de nada.
-            Commit();
+            if (clienteReturn.ValidationResult.IsValid)
+            {
+                Commit();
+            }
 
             clienteEnderecoViewModel.Cliente = Mapper.Map<ClienteViewModel>(clienteReturn);
 

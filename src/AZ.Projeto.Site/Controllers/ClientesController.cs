@@ -63,10 +63,15 @@ namespace AZ.Projeto.Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ClienteEnderecoViewModel clienteEnderecoViewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(clienteEnderecoViewModel);
+
+            clienteEnderecoViewModel = _clienteAppService.Adicionar(clienteEnderecoViewModel);
+
+            if (clienteEnderecoViewModel.Cliente.ValidationResult.IsValid) return RedirectToAction("Index");
+            
+            foreach (var erro in clienteEnderecoViewModel.Cliente.ValidationResult.Erros)
             {
-                _clienteAppService.Adicionar(clienteEnderecoViewModel);
-                return RedirectToAction("Index");
+                ModelState.AddModelError(string.Empty, erro.Message);
             }
 
             return View(clienteEnderecoViewModel);

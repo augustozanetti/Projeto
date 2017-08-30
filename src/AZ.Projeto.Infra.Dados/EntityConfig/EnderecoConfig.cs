@@ -34,6 +34,8 @@ namespace AZ.Projeto.Infra.Dados.EntityConfig
                 .WithMany(c => c.Enderecos)// N endereços
                 .HasForeignKey(e => e.ClienteId); // chave estrangeira
 
+            Ignore(c => c.ValidationResult);
+
             ToTable("Enderecos");
 
             //HasOptional(e => e.Cliente)//Relacionamento Opcional

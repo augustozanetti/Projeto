@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AZ.Projeto.Dominio.Model;
 using AZ.Projeto.Dominio.Interfaces.Repositorio;
+using AZ.Projeto.Dominio.Validacoes.Clientes;
 
 namespace AZ.Projeto.Dominio.Servicos
 {
@@ -20,11 +21,16 @@ namespace AZ.Projeto.Dominio.Servicos
 
         public Cliente Adicionar(Cliente cliente)
         {
-            return _clienteRepositorio.Atualizar(cliente);
+            if (!cliente.EhValido()) return cliente;
+
+            cliente.ValidationResult = new ClienteAptoParaCadastroValidacao(_clienteRepositorio).Validate(cliente);
+            
+            return !cliente.ValidationResult.IsValid ? cliente : _clienteRepositorio.Adicionar(cliente);
         }
 
         public Cliente Atualizar(Cliente cliente)
         {
+            if (!cliente.EhValido()) return cliente;
             return _clienteRepositorio.Atualizar(cliente);
         }
 

@@ -1,5 +1,6 @@
 ﻿using AZ.Projeto.Dominio.Interfaces.Repositorio;
 using AZ.Projeto.Dominio.Model;
+using AZ.Projeto.Infra.Dados.Contexto;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,11 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
 {
     public class ClienteRepository : Repository<Cliente>, IClienteRepositorio
     {
+        public ClienteRepository(ProjetoContext context) : base(context)
+        {
+
+        }
+
         public Cliente ObterPorCpf(string cpf)
         {
             return Buscar(c => c.CPF == cpf).FirstOrDefault();

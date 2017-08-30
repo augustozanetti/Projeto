@@ -19,7 +19,7 @@ namespace AZ.Projeto.Dominio.Validacoes.Clientes
 
             base.Add("CPFClienteValido", new Rule<Cliente>(CPFCliente, "Cliente informou um CPF inválido"));
             base.Add("clienteEmail", new Rule<Cliente>(clienteEmail, "Cliente informou um e-mail inválido"));
-            base.Add("clienteMaioridade", new Rule<Cliente>(clienteMaioridade, "Cliente não tem maioridade"));
+            base.Add("clienteMaioridade", new Rule<Cliente>(clienteMaioridade, "Cliente não tem maioridade para cadastro"));
         }
     }
 }
