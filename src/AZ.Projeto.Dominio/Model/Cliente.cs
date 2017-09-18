@@ -35,5 +35,10 @@ namespace AZ.Projeto.Dominio.Model
             ValidationResult = new ClienteEstaConsistenteValidation().Validate(this);
             return ValidationResult.IsValid;
         }
+
+        public bool EhAtivo()
+        {
+            return Ativo && !Excluido;
+        }
     }
 }

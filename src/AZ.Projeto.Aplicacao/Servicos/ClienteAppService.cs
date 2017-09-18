@@ -55,6 +55,8 @@ namespace AZ.Projeto.Aplicacao.Servicos
             var cliente = Mapper.Map<Cliente>(clienteViewModel);
             var clienteReturn = _clienteService.Atualizar(cliente);
 
+            Commit();
+
             return Mapper.Map<ClienteViewModel>(clienteReturn);
         }
 

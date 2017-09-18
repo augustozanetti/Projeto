@@ -37,7 +37,7 @@ namespace AZ.Projeto.Infra.Dados.Repositorios
 
         public override IEnumerable<Cliente> ObterTodos()
         {
-            var sql = @"SELECT * FROM Clientes c" +
+            var sql = @"SELECT * FROM Clientes c " +
                        "WHERE c.Excluido = 0";
 
             return Db.Database.Connection.Query<Cliente>(sql);
